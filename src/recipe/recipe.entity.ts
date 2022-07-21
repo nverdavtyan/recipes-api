@@ -4,11 +4,9 @@ import {
   PrimaryGeneratedColumn,
   JoinTable,
   ManyToMany,
-  Unique,
 } from 'typeorm';
-import { Ingredient } from '../ingredient/entities/ingredient.entity';
-import { IsEmail, IsNotEmpty, Length } from 'class-validator';
-export enum RecipeType {
+import { Ingredient } from '../ingredient/ingredient.entity';
+export enum type {
   BREAKFAST = 'breakfast',
   LAUNCH = 'lunch',
   DINNER = 'dinner',
@@ -19,20 +17,18 @@ export class Recipe {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({
-    unique: true,
-  })
+  @Column({ unique: true })
   name: string;
 
   @Column({
     type: 'enum',
-    enum: RecipeType,
-    default: RecipeType.BREAKFAST,
+    enum: type,
+    default: type.BREAKFAST,
   })
-  type: RecipeType;
+  type: type;
 
-  @Column('simple-array')
-  instructions: string[];
+  @Column({ nullable: true })
+  instructions: string;
 
   @ManyToMany(() => Ingredient, (ingredients) => ingredients.recipes, {
     cascade: false,

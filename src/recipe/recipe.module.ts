@@ -5,7 +5,7 @@ import { Recipe } from './recipe.entity';
 import { RecipesService } from './recipes.service';
 
 import { IngredientController } from '../ingredient/ingredient.controller';
-import { Ingredient } from '../ingredient/entities/ingredient.entity';
+import { Ingredient } from '../ingredient/ingredient.entity';
 import { IngredientService } from '../ingredient/ingredient.service';
 
 @Module({

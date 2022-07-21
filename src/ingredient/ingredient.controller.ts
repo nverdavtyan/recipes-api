@@ -23,8 +23,8 @@ export class IngredientController {
   constructor(private readonly ingredientService: IngredientService) {}
 
   @Post()
-  @HttpCode(201)
-  @ApiOperation({ summary: 'Add a new ingredient to the cookshelf' })
+  @HttpCode(200)
+  @ApiOperation({ summary: 'Add a new ingredient ' })
   @ApiCreatedResponse({
     description: 'Ingredient successfully created',
     type: CreateIngredientDto,
@@ -53,8 +53,6 @@ export class IngredientController {
   }
 
   @Delete(':id')
-  @HttpCode(209)
-  @ApiResponse({ status: 209, description: 'Recipe successfully deleted' })
   remove(@Param('id') id: string) {
     return this.ingredientService.remove(+id);
   }

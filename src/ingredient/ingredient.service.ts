@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateIngredientDto } from './dto/create-ingredient.dto';
 import { UpdateIngredientDto } from './dto/update-ingredient.dto';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Ingredient } from './entities/ingredient.entity';
+import { Ingredient } from './ingredient.entity';
 
 @Injectable()
 export class IngredientService {
@@ -21,15 +21,22 @@ export class IngredientService {
     return this.ingredientRepository.find();
   }
 
-  findOne(id: number) {
-    //return this.ingredientRepository.findOne(id);
+  async findOne(id: number) {
+    const found = await this.ingredientRepository.findOne(id);
+    if (!found) {
+      throw new NotFoundException(`Ingredient with ID ${id} not found !`);
+    }
+    return found;
   }
 
   update(id: number, updateIngredientDto: UpdateIngredientDto) {
     return this.ingredientRepository.update(id, updateIngredientDto);
   }
 
-  remove(id: number) {
-    return this.ingredientRepository.delete(id);
+  async remove(id: number) {
+    const result = await this.ingredientRepository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Ingredient with ID ${id} not found !`);
+    }
   }
 }
