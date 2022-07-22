@@ -7,7 +7,7 @@
 ### Requirements
 
 - Nest
-- PostgreSQl - `config your db`
+- PostgreSQL - `config your db`
 
 ## Installation
 
@@ -30,14 +30,12 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-```
 ##How to use
+```
 The Recipes api with swagger
 You will find all methods at this url
 
 http://localhost:3000/api
-
-
 
 
 - Author - [Nver Davtyan](https://nverdavtyan.com)
