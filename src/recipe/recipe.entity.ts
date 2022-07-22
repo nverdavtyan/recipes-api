@@ -18,15 +18,15 @@ export class Recipe {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ApiProperty()
+  @ApiProperty({ name: 'rrrr' })
   @Column({ unique: true })
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({ enum: ['breakfast', 'lunch', 'dinner'] })
   @Column({
     type: 'enum',
     enum: type,
-    default: type.BREAKFAST,
+    default: type.DINNER,
   })
   type: type;
 

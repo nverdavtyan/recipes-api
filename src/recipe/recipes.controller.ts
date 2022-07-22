@@ -40,7 +40,7 @@ export class RecipesController {
 
   @Post()
   @HttpCode(200)
-  @ApiCreatedResponse({ type: Recipe })
+  @ApiCreatedResponse({ type: Recipe, description: 'Create recipe' })
   @ApiOperation({ summary: 'Create a new recipe ' })
   create(@Body() createRecipeDto: CreateRecipeDto) {
     return this.recipesService.create(createRecipeDto);
