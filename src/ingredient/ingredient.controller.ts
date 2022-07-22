@@ -13,6 +13,7 @@ import {
   ApiResponse,
   ApiBadRequestResponse,
   ApiCreatedResponse,
+  ApiNotFoundResponse,
 } from '@nestjs/swagger';
 import { IngredientService } from './ingredient.service';
 import { CreateIngredientDto } from './dto/create-ingredient.dto';
@@ -53,6 +54,10 @@ export class IngredientController {
   }
 
   @Delete(':id')
+  @HttpCode(204)
+  @ApiOperation({ summary: 'Delete  ingredient ' })
+  @ApiResponse({ status: 204, description: 'Recipe successfully deleted' })
+  @ApiNotFoundResponse({ description: 'Recipe not found' })
   remove(@Param('id') id: string) {
     return this.ingredientService.remove(+id);
   }

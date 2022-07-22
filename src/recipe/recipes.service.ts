@@ -33,13 +33,15 @@ export class RecipesService {
     return found;
   }
 
-  create(createIngredientDto: CreateRecipeDto) {
-    return this.recipeRepository.save(createIngredientDto).catch((e) => {
+  async create(recipe) {
+    const result = await this.recipeRepository.save(recipe).catch((e) => {
       if (/(name)[\s\S]+(already exists)/.test(e.detail)) {
-        throw new BadRequestException('BAZINGA');
+        throw new BadRequestException('Recipe already exists try another name');
       }
       return e;
     });
+    console.log('BAZINGA');
+    return result;
   }
 
   // function for add ingredients to recipe

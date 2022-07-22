@@ -17,7 +17,6 @@ async function bootstrap() {
     .setTitle('Recipes')
     .setDescription('The Recipe API')
     .setVersion('1.0')
-    .addTag('recipes')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
