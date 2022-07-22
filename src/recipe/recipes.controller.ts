@@ -19,7 +19,7 @@ import {
 } from '@nestjs/swagger';
 import { RecipesService } from './recipes.service';
 import { CreateRecipeDto } from './dto/createRecipe.dto';
-
+import { Recipe } from './recipe.entity';
 @Controller('recipes')
 export class RecipesController {
   constructor(private readonly recipesService: RecipesService) {}
@@ -39,12 +39,15 @@ export class RecipesController {
   }
 
   @Post()
+  @HttpCode(200)
+  @ApiCreatedResponse({ type: Recipe })
   @ApiOperation({ summary: 'Create a new recipe ' })
   create(@Body() createRecipeDto: CreateRecipeDto) {
     return this.recipesService.create(createRecipeDto);
   }
 
   @Patch(':id')
+  @ApiCreatedResponse({ type: Recipe })
   @ApiOperation({ summary: 'Update an existing recipe' })
   @ApiOkResponse({
     description: 'Recipe successfully updated',
@@ -68,7 +71,6 @@ export class RecipesController {
   }
 
   @Patch(':recipeId/ingredient/:ingredientId')
-  @HttpCode(200)
   @ApiOperation({ summary: 'Add a new ingredient to the recipe' })
   @ApiCreatedResponse({
     description: 'Ingredient successfully added',

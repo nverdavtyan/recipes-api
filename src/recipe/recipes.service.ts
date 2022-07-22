@@ -18,12 +18,12 @@ export class RecipesService {
     private readonly ingredientRepository: Repository<Ingredient>,
   ) {}
 
-  findAll() {
-    return this.recipeRepository.find({ relations: ['ingredients'] });
+  async findAll() {
+    return await this.recipeRepository.find({ relations: ['ingredients'] });
   }
 
-  findOne(id: number) {
-    const found = this.recipeRepository.findOne(id, {
+  async findOne(id: number) {
+    const found = await this.recipeRepository.findOne(id, {
       relations: ['ingredients'],
     });
     if (!found) {
@@ -33,13 +33,17 @@ export class RecipesService {
     return found;
   }
 
-  async create(recipe) {
-    const result = await this.recipeRepository.save(recipe).catch((e) => {
-      if (/(name)[\s\S]+(already exists)/.test(e.detail)) {
-        throw new BadRequestException('Recipe already exists try another name');
-      }
-      return e;
-    });
+  async create(CreateRecipeDto: CreateRecipeDto) {
+    const result = await this.recipeRepository
+      .save(CreateRecipeDto)
+      .catch((e) => {
+        if (/(name)[\s\S]+(already exists)/.test(e.detail)) {
+          throw new BadRequestException(
+            'Recipe already exists try another name',
+          );
+        }
+        return e;
+      });
     console.log('BAZINGA');
     return result;
   }

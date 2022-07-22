@@ -30,10 +30,10 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-##How to use
+## How to use
 ```
 The Recipes api with swagger
-You will find all methods at this url
+You will find all api methods at this url
 
 http://localhost:3000/api
 

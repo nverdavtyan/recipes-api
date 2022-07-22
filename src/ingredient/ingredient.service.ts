@@ -18,17 +18,19 @@ export class IngredientService {
     private ingredientRepository: Repository<Ingredient>,
   ) {}
 
-  create(createIngredientDto: CreateIngredientDto) {
-    return this.ingredientRepository.save(createIngredientDto).catch((e) => {
-      if (/(name)[\s\S]+(already exists)/.test(e.detail)) {
-        throw new BadRequestException('The name already exists');
-      }
-      return e;
-    });
+  async create(createIngredientDto: CreateIngredientDto) {
+    return await this.ingredientRepository
+      .save(createIngredientDto)
+      .catch((e) => {
+        if (/(name)[\s\S]+(already exists)/.test(e.detail)) {
+          throw new BadRequestException('The name already exists');
+        }
+        return e;
+      });
   }
 
-  findAll() {
-    return this.ingredientRepository.find();
+  async findAll() {
+    return await this.ingredientRepository.find();
   }
 
   async findOne(id: number) {
@@ -39,8 +41,8 @@ export class IngredientService {
     return found;
   }
 
-  update(id: number, updateIngredientDto: UpdateIngredientDto) {
-    return this.ingredientRepository.update(id, updateIngredientDto);
+  async update(id: number, updateIngredientDto: UpdateIngredientDto) {
+    return await this.ingredientRepository.update(id, updateIngredientDto);
   }
 
   async remove(id: number) {

@@ -5,6 +5,7 @@ import {
   JoinTable,
   ManyToMany,
 } from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
 import { Ingredient } from '../ingredient/ingredient.entity';
 export enum type {
   BREAKFAST = 'breakfast',
@@ -17,9 +18,11 @@ export class Recipe {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @ApiProperty()
   @Column({ unique: true })
   name: string;
 
+  @ApiProperty()
   @Column({
     type: 'enum',
     enum: type,
@@ -27,6 +30,7 @@ export class Recipe {
   })
   type: type;
 
+  @ApiProperty()
   @Column({ nullable: true })
   instructions: string;
 
